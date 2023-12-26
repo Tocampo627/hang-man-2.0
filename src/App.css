@@ -16,6 +16,9 @@
   flex-direction: column;
   max-width: max-content;
   margin: 0 auto;
-  margin-bottom: 10px;
+  row-gap: 10px;
   font-family: "Courier New", Courier, monospace;
+}
+#question-icon {
+  margin-top: 30px;
 }

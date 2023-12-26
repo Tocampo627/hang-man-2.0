@@ -16,12 +16,11 @@ function App() {
           <h3>Select a Category</h3>
           <div className="category-buttons">
             <button>World Countries 🌎</button>
-          </div>
-          <div className="category-buttons">
             <button>Animals 🐕</button>
-          </div>
-          <div className="category-buttons">
             <button>USA Capitals 🇺🇸</button>
+          </div>
+          <div id="question-icon">
+            <span className="material-symbols-outlined">help</span>
           </div>
         </div>
       </div>
