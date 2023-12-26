@@ -1,10 +1,11 @@
 import "./App.css";
 import { useState } from "react";
 import Instructions from "./gameContent/Instructions";
+import GameBoard from "./gameContent/GameBoard";
 
 function App() {
   const [needHelp, setState] = useState<boolean>(false);
-
+  const title: JSX.Element = <h1 className="title">A Classic Game of Hangman</h1>;
   if (needHelp) {
     return <Instructions setState={setState}></Instructions>;
   } else {
@@ -12,11 +13,11 @@ function App() {
       <>
         <div>
           <div>
-            <h1 className="title">A Classic Game of Hangman</h1>
+           {title}
           </div>
           <div>
-            <h3>Select a Category</h3>
-            <div className="category-buttons">
+            <h3 className="category-text">Select a Category</h3>
+            <div className="category-buttons category-text">
               <button>World Countries 🌎</button>
               <button>Animals 🐕</button>
               <button>USA Capitals 🇺🇸</button>
@@ -26,6 +27,9 @@ function App() {
                 <span className="material-symbols-outlined">help</span>
               </a>
             </div>
+          </div>
+          <div>
+            <GameBoard title={title}></GameBoard>
           </div>
         </div>
       </>

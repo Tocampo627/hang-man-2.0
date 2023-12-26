@@ -9,6 +9,7 @@
 }
 .title {
   font-family: "Rubik Doodle Shadow", sans-serif;
+  font-size: 5em;
 }
 .category-buttons {
   display: flex;
@@ -16,7 +17,10 @@
   max-width: max-content;
   margin: 0 auto;
   row-gap: 10px;
+}
+.category-text {
   font-family: "Courier New", Courier, monospace;
+  font-size: x-large;
 }
 #question-icon {
   margin-top: 30px;

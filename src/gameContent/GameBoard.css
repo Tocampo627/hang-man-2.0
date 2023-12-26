@@ -1,0 +1,19 @@
+.dash-container {
+  display: flex;
+  flex-direction: row;
+  margin: 2em;
+  column-gap: 10vh;
+}
+.hangman-image {
+  border: 1px solid;
+}
+.icons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 4em;
+  min-width: 10vh;
+}
+.icons {
+  font-size: 3em;
+}
