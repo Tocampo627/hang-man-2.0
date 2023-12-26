@@ -1,0 +1,20 @@
+.how-to-play-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50em;
+  font-family: "Courier New", Courier, monospace;
+}
+.how-to-play-ordered-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+ol {
+  max-width: 50em;
+  text-align: start;
+}
+#home-icon {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
