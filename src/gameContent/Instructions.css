@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   max-width: 50em;
   font-family: "Courier New", Courier, monospace;
 }
@@ -15,6 +14,7 @@ ol {
   max-width: 50em;
   text-align: start;
 }
+
 #home-icon {
   margin-top: 20px;
   margin-bottom: 50px;

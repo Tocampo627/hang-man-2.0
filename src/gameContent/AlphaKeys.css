@@ -1,0 +1,24 @@
+.boardgame-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.keys {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+}
+.keyboard-letters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 40em;
+  justify-content: center;
+  column-gap: 15px;
+  row-gap: 15px;
+  margin: 2em;
+}
+.char-button {
+  text-align: center;
+  justify-content: space-around;
+}
