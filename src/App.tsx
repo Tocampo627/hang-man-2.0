@@ -6,7 +6,7 @@ function App() {
   const [needHelp, setState] = useState<boolean>(false);
 
   if (needHelp) {
-    return <Instructions setState={setState}></Instructions>
+    return <Instructions setState={setState}></Instructions>;
   } else {
     return (
       <>
