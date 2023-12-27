@@ -5,7 +5,6 @@
   column-gap: 10vh;
 }
 .hangman-image {
-  border: 1px solid;
 }
 .icons-container {
   display: flex;
