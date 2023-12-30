@@ -1,8 +1,9 @@
 import "./AlphaKeys.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type AlphaKeysProps = {
   onKeyClick: (key: string) => void;
+  reset: boolean;
 };
 const alphabet: Array<string> = [
   "A",
@@ -33,13 +34,22 @@ const alphabet: Array<string> = [
   "Z",
 ];
 
-const AlphaKeys = ({ onKeyClick }: AlphaKeysProps) => {
-  const [disabledLetters, setDisabledLetters] = useState<{[key: string]: boolean;}>({});
+const AlphaKeys = ({ onKeyClick, reset }: AlphaKeysProps) => {
+  const [disabledLetters, setDisabledLetters] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  useEffect(() => {
+    if (reset) {
+      setDisabledLetters({});
+    }
+  }, [reset]);
 
   const handleClick = (letter: string) => {
     onKeyClick(letter);
     setDisabledLetters((prev) => ({ ...prev, [letter]: true }));
   };
+
   return (
     <div>
       <div className="keyboard-letters">
