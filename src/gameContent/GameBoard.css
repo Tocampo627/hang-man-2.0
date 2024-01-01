@@ -29,6 +29,7 @@
     flex-direction: row;
     column-gap: 3em;
     align-items: center;
+    padding-left: 2vh;
   }
 
   .icons-container {
@@ -37,7 +38,7 @@
     min-width: auto;
   }
   .title {
-    font-size: 25px;
+    font-size: 30px;
     width: 100%;
   }
   .hangman-image {
