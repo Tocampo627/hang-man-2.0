@@ -3,3 +3,6 @@
   flex-direction: column;
   row-gap: 1em;
 }
+.answer {
+  font-family: "Courier New", Courier, monospace;
+}
