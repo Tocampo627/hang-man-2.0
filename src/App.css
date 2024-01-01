@@ -6,11 +6,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
- 
 }
 .title {
   font-family: "Rubik Doodle Shadow", sans-serif;
-  font-size: 5em;
+  font-size: 4em;
 }
 .category-buttons {
   display: flex;
@@ -21,7 +20,7 @@
 }
 .category-text {
   font-family: "Courier New", Courier, monospace;
-  font-size: x-large;
+  font-size: large;
 }
 #question-icon {
   margin-top: 30px;
