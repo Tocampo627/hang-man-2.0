@@ -66,7 +66,6 @@ const GameBoard = ({
         break;
     }
     setRandomWord(randomWord);
-    console.log(randomWord);
   };
 
   useEffect(() => {
