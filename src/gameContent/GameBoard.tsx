@@ -17,7 +17,7 @@ type GameBoardProperties = {
   categorySelected: string;
 };
 
-const MAX_TRIES = 8;
+const MAX_INCORRECT_TRIES: number = 7;
 
 const hangmanStages = [
   { image: img1 },
@@ -35,10 +35,12 @@ const GameBoard = ({
   setGameState,
   categorySelected,
 }: GameBoardProperties) => {
-  const [hangmanImageIndex, setHangmanImageIndex] = useState<number>(0);
   const [randomWord, setRandomWord] = useState<string>("");
   const [resetKeyboard, setResetKeyBoard] = useState<boolean>(false);
   const [guessedLetters, setGuessedLetters] = useState<Set<string>>(new Set());
+  const [wrongGuessCount, setWrongGuessCount] = useState<number>(0);
+  const [correctGuessCount, setCorrectGuessCount] = useState<number>(0);
+  const [dashedWordProgress, setDashedWordProgress] = useState<string>("");
 
   const generateRandomWord = () => {
     let randomWord: string = "";
@@ -67,26 +69,7 @@ const GameBoard = ({
   };
 
   useEffect(() => {
-    generateRandomWord();
-  }, [categorySelected]);
-
-  const handleUserKeyClick = (key: string) => {
-    const lowerCaseKey = key.toLowerCase();
-
-    if (randomWord.toLowerCase().includes(lowerCaseKey)) {
-      setGuessedLetters(new Set([...guessedLetters, lowerCaseKey]));
-    } else {
-      if (hangmanImageIndex + 1 <= MAX_TRIES) {
-        setHangmanImageIndex(hangmanImageIndex + 1);
-      } else {
-        console.warn("youre out of tries");
-        resetGame();
-      }
-    }
-  };
-
-  const getWordDisplay = () => {
-    return randomWord
+    const dashedWord = randomWord
       .split("")
       .map((letter) =>
         letter === " "
@@ -96,13 +79,43 @@ const GameBoard = ({
           : "_"
       )
       .join(" ");
+    setDashedWordProgress(dashedWord);
+  }, [randomWord, guessedLetters, dashedWordProgress]);
+
+  useEffect(() => {
+    generateRandomWord();
+  }, [categorySelected]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (dashedWordProgress && !dashedWordProgress.includes("_")) {
+        //TODO: pop up display
+        alert("You won");
+      }
+    }, 150);
+  }, [dashedWordProgress]);
+
+  const handleUserKeyClick = (key: string) => {
+    const lowerCaseKey = key.toLowerCase();
+    if (randomWord.toLowerCase().includes(lowerCaseKey)) {
+      setCorrectGuessCount(correctGuessCount + 1);
+      setGuessedLetters(new Set([...guessedLetters, lowerCaseKey]));
+    } else {
+      setWrongGuessCount(wrongGuessCount + 1);
+      if (wrongGuessCount >= MAX_INCORRECT_TRIES) {
+        //TODO: pop up display
+        alert("game Over");
+        resetGame();
+      }
+    }
   };
 
   const resetGame = () => {
-    setHangmanImageIndex(0);
     generateRandomWord();
     setResetKeyBoard(true);
     setGuessedLetters(new Set());
+    setWrongGuessCount(0);
+    setCorrectGuessCount(0);
     setTimeout(() => {
       setResetKeyBoard(false);
     }, 100);
@@ -127,13 +140,16 @@ const GameBoard = ({
           </span>
         </div>
         <img
-          src={hangmanStages[hangmanImageIndex].image}
+          src={hangmanStages[wrongGuessCount].image}
           className="hangman-image"
           alt="Hang Man Image"
         ></img>
       </div>
 
-      <div className="word-dashes">{getWordDisplay()}</div>
+      <div>
+        Wrong Moves Made: {wrongGuessCount}/{MAX_INCORRECT_TRIES}
+      </div>
+      <div className="word-dashes">{dashedWordProgress}</div>
 
       <div className="keys">
         <AlphaKeys
