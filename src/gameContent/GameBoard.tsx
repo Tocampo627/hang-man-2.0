@@ -89,7 +89,7 @@ const GameBoard = ({
   useEffect(() => {
     setTimeout(() => {
       if (dashedWordProgress && !dashedWordProgress.includes("_")) {
-        setMatchStatus("YOU WON");
+        setMatchStatus("YOU WON! 🥳");
         setEndGamePopUp(true);
       }
     }, 150);
@@ -98,7 +98,7 @@ const GameBoard = ({
   useEffect(() => {
     setTimeout(() => {
       if (wrongGuessCount >= MAX_INCORRECT_TRIES) {
-        setMatchStatus("YOU SUCKKKK");
+        setMatchStatus("YOU LOST! 🤭");
         setEndGamePopUp(true);
       }
     }, 150);
@@ -169,6 +169,7 @@ const GameBoard = ({
           setGameState={setGameState}
           setEndGamePopUp={setEndGamePopUp}
           resetGame={resetGame}
+          answer={randomWord}
         ></PopUp>
       </div>
     );
