@@ -1,7 +1,7 @@
 .dash-container {
   display: flex;
   flex-direction: row;
-  margin: 2em;
+  max-width: 1280px;
   column-gap: 10vh;
 }
 
@@ -16,5 +16,44 @@
   font-size: 3em;
 }
 .word-dashes {
-  font-size: 24px;
+  font-size: 25px;
+}
+
+/* Add Responsive Styles */
+@media screen and (max-width: 768px) {
+  .boardgame-container {
+    margin: 0;
+    padding: 0;
+  }
+  .dash-container {
+    flex-direction: row;
+    column-gap: 3em;
+    align-items: center;
+  }
+
+  .icons-container {
+    flex-direction: column;
+    row-gap: 2em;
+    min-width: auto;
+  }
+  .title {
+    font-size: 25px;
+    width: 100%;
+  }
+  .hangman-image {
+    width: 250px;
+    height: 250px;
+  }
+  .icons {
+    font-size: 25px;
+  }
+
+  .word-dashes {
+    margin: 1em;
+    font-size: 19px;
+  }
+
+  .keyboard-letters {
+    max-width: 100%;
+  }
 }

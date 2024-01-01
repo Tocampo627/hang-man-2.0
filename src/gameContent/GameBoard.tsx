@@ -120,7 +120,7 @@ const GameBoard = ({
     setWrongGuessCount(0);
     setTimeout(() => {
       setResetKeyBoard(false);
-    }, 100);
+    }, 150);
   };
   if (!endGamePopUp) {
     return (
@@ -149,7 +149,7 @@ const GameBoard = ({
         </div>
 
         <div>
-          Wrong Moves Made: {wrongGuessCount}/{MAX_INCORRECT_TRIES}
+          Incorrect Moves: {wrongGuessCount} / {MAX_INCORRECT_TRIES}
         </div>
         <div className="word-dashes">{dashedWordProgress}</div>
 

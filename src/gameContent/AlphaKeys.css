@@ -1,12 +1,3 @@
-.boardgame-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .keys {
   display: flex;
   justify-content: center;
@@ -30,4 +21,22 @@
   text-decoration: line-through 1px black;
   color: red;
   background-color: rgba(240, 248, 255, 0.334);
+}
+
+@media screen and (max-width: 768px) {
+  .keys {
+    display: flex;
+    justify-content: center;
+    font-size: 13px;
+  }
+  .keyboard-letters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    column-gap: 6px;
+    row-gap: 10px;
+    margin: 0;
+  }
 }
