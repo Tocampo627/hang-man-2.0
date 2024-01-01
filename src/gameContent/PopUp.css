@@ -1,0 +1,5 @@
+.play-again-button {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}

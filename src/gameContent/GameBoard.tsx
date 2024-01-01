@@ -10,6 +10,7 @@ import img5 from "../../public/5.svg";
 import img6 from "../../public/6.svg";
 import img7 from "../../public/7.svg";
 import img8 from "../../public/8.svg";
+import PopUp from "./PopUp";
 
 type GameBoardProperties = {
   title: JSX.Element;
@@ -18,7 +19,6 @@ type GameBoardProperties = {
 };
 
 const MAX_INCORRECT_TRIES: number = 7;
-
 const hangmanStages = [
   { image: img1 },
   { image: img2 },
@@ -39,8 +39,9 @@ const GameBoard = ({
   const [resetKeyboard, setResetKeyBoard] = useState<boolean>(false);
   const [guessedLetters, setGuessedLetters] = useState<Set<string>>(new Set());
   const [wrongGuessCount, setWrongGuessCount] = useState<number>(0);
-  const [correctGuessCount, setCorrectGuessCount] = useState<number>(0);
   const [dashedWordProgress, setDashedWordProgress] = useState<string>("");
+  const [endGamePopUp, setEndGamePopUp] = useState<boolean>(false);
+  const [matchStatus, setMatchStatus] = useState<string>("");
 
   const generateRandomWord = () => {
     let randomWord: string = "";
@@ -89,24 +90,27 @@ const GameBoard = ({
   useEffect(() => {
     setTimeout(() => {
       if (dashedWordProgress && !dashedWordProgress.includes("_")) {
-        //TODO: pop up display
-        alert("You won");
+        setMatchStatus("YOU WON");
+        setEndGamePopUp(true);
       }
     }, 150);
   }, [dashedWordProgress]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (wrongGuessCount >= MAX_INCORRECT_TRIES) {
+        setMatchStatus("YOU SUCKKKK");
+        setEndGamePopUp(true);
+      }
+    }, 150);
+  }, [wrongGuessCount]);
+
   const handleUserKeyClick = (key: string) => {
     const lowerCaseKey = key.toLowerCase();
     if (randomWord.toLowerCase().includes(lowerCaseKey)) {
-      setCorrectGuessCount(correctGuessCount + 1);
       setGuessedLetters(new Set([...guessedLetters, lowerCaseKey]));
     } else {
       setWrongGuessCount(wrongGuessCount + 1);
-      if (wrongGuessCount >= MAX_INCORRECT_TRIES) {
-        //TODO: pop up display
-        alert("game Over");
-        resetGame();
-      }
     }
   };
 
@@ -115,50 +119,61 @@ const GameBoard = ({
     setResetKeyBoard(true);
     setGuessedLetters(new Set());
     setWrongGuessCount(0);
-    setCorrectGuessCount(0);
     setTimeout(() => {
       setResetKeyBoard(false);
     }, 100);
   };
-
-  return (
-    <div className="boardgame-container">
-      <div>{title}</div>
-      <div className="dash-container">
-        <div className="icons-container">
-          <span
-            className="material-symbols-outlined icons"
-            onClick={() => setGameState(false)}
-          >
-            home
-          </span>
-          <span
-            className="material-symbols-outlined icons"
-            onClick={() => resetGame()}
-          >
-            restart_alt
-          </span>
+  if (!endGamePopUp) {
+    return (
+      <div className="boardgame-container">
+        <div>{title}</div>
+        <div className="dash-container">
+          <div className="icons-container">
+            <span
+              className="material-symbols-outlined icons"
+              onClick={() => setGameState(false)}
+            >
+              home
+            </span>
+            <span
+              className="material-symbols-outlined icons"
+              onClick={() => resetGame()}
+            >
+              restart_alt
+            </span>
+          </div>
+          <img
+            src={hangmanStages[wrongGuessCount].image}
+            className="hangman-image"
+            alt="Hang Man Image"
+          ></img>
         </div>
-        <img
-          src={hangmanStages[wrongGuessCount].image}
-          className="hangman-image"
-          alt="Hang Man Image"
-        ></img>
-      </div>
 
+        <div>
+          Wrong Moves Made: {wrongGuessCount}/{MAX_INCORRECT_TRIES}
+        </div>
+        <div className="word-dashes">{dashedWordProgress}</div>
+
+        <div className="keys">
+          <AlphaKeys
+            onKeyClick={handleUserKeyClick}
+            reset={resetKeyboard}
+          ></AlphaKeys>
+        </div>
+      </div>
+    );
+  } else {
+    return (
       <div>
-        Wrong Moves Made: {wrongGuessCount}/{MAX_INCORRECT_TRIES}
+        <PopUp
+          title={matchStatus}
+          setGameState={setGameState}
+          setEndGamePopUp={setEndGamePopUp}
+          resetGame={resetGame}
+        ></PopUp>
       </div>
-      <div className="word-dashes">{dashedWordProgress}</div>
-
-      <div className="keys">
-        <AlphaKeys
-          onKeyClick={handleUserKeyClick}
-          reset={resetKeyboard}
-        ></AlphaKeys>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 const randomizer = (n: number): number => {
